@@ -11,7 +11,8 @@ package pws.c.p4;
 public class Product {
     private String id;
     private String name;
-
+    private String jumlah;
+    private String harga;
     public String getId() {
         return id;
     }
@@ -27,6 +28,23 @@ public class Product {
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getJumlah() {
+        return jumlah;
+    }
+
+    public void setJumlah(String jumlah) {
+        this.jumlah = jumlah;
+    }
+
+    public String getHarga() {
+        return harga;
+    }
+
+    public void setHarga(String harga) {
+        this.harga = harga;
+    }
+    
     
     
     
