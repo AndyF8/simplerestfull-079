@@ -47,21 +47,25 @@ public class ProductServiceController {
     }
     
     
-   
+    //menambahkan method delete dan menampilkan respon ketika melakukan delete
     @RequestMapping(value = "/products/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> delete(@PathVariable("id") String id) { 
          
        productRepo.remove(id);
        return new ResponseEntity<>("Product is deleted successsfully", HttpStatus.OK);
     }
-
+    
+    //menambahkan metohd put untuk mengedit data 
     @RequestMapping(value = "/products/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Object> update(@PathVariable("id") String id, @RequestBody Product product) { 
-       if(!productRepo.containsKey(id)){
+        
+        //menambahkan fungsi if apabila id tidak ada akan muncul message "Data not found"
+       if(!productRepo.containsKey(id)){ 
      
           
            return new ResponseEntity<>("Data not found", HttpStatus.INTERNAL_SERVER_ERROR);
        }
+       //menambahkan fungsi else apabila id ada  akan muncul message "Product is updated successsfully"
        else{
             productRepo.remove(id);
             product.setId(id);
@@ -72,20 +76,26 @@ public class ProductServiceController {
        }
        
     }
-
+    
+    
+    //menambahkan method POST untuk menambah data
     @RequestMapping(value = "/products", method = RequestMethod.POST)
     public ResponseEntity<Object> create(@RequestBody Product product) {
-        
+       
+       //menambahkan fungsi else apabila akan membuat data id sama akan muncul message "ID Cannot be the same"
        if(productRepo.containsKey(product.getId())){
      
           
            return new ResponseEntity<>("ID Cannot be the same", HttpStatus.CREATED);
           
       }
+        //menambahkan fungsi else apabila id ada akan muncul message "Product is created successsfully"
        productRepo.put(product.getId(), product);
        return new ResponseEntity<>("Product is created successfully", HttpStatus.CREATED);
     }
-
+    
+    
+    //menambahkan method GET untuk menampilkan data dari Hashmap
     @RequestMapping(value = "/products")
     public ResponseEntity<Object> getProduct() {
        return new ResponseEntity<>(productRepo.values(), HttpStatus.OK);
